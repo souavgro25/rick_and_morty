@@ -1,0 +1,82 @@
+.contactDetail{
+    height: 350px;
+    width: 360px;
+    display: flex;
+    background-color: white;
+    align-items: center;
+    flex-direction: column;
+}
+
+.contactDetail>.MuiSvgIcon-root{
+    background-color: transparent;
+    margin-left: 320px;
+    color: gray;
+}
+
+.contactDetail__upper{
+    display: flex;
+    align-content: space-between;
+    flex-direction: row;
+    background-color: transparent;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 2px solid lightgray;
+}
+.contactDetail__upper>img{
+    height: 100px;
+    margin-right: 20px;
+    object-fit: contain;
+    border-radius: 100px;
+}
+
+.upper__right{
+    height: 70px;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+
+}
+.upper__right>p{
+    background-color: transparent;
+    font-size: large;
+    font-weight: 400;
+}
+
+.upper__right>h3{
+    font-size: large;
+    /* padding-right:20px ; */
+    background-color: transparent;
+}
+
+.contactDetail__lower{
+    display: flex;
+    align-content: center;  
+    margin-top: 10px;
+    background-color: transparent;
+}
+.lowertext{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 10px;
+    background-color: transparent;
+    
+}
+.lowertext>p{
+
+   font-size: small;
+   color: gray;
+   font-weight: 300;
+  
+   background-color: transparent;
+}
+
+.lowertext>h4{
+    height: 80px;
+    width: 100px;
+    font-size: 15px;  
+    background-color: transparent;
+    margin-right: 50px;
+    margin-left: 50px;
+}

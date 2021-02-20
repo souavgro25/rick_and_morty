@@ -1,0 +1,59 @@
+.search__results>li>img{
+  height: 23px;
+}
+
+.search{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 0px;
+  position: sticky;
+  top:80px;
+
+  
+}
+.search>h2{
+  display: flex;
+  margin: 20px 20px;
+  font-size: 50px;
+  
+}
+
+.search__auto{
+  background-color: white;
+  padding: 10px;
+  margin-right: 10px;
+  padding-bottom: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  height: 20px;
+  width: 350px;
+  position: sticky;
+  top: 0px;
+  z-index: 999;
+  margin-left: 10px;
+}
+
+.search__bar{
+  display: flex;
+  background-color: white;
+  margin-bottom: 40px;
+  align-items: center;
+}
+.search__bar>input{
+  margin-left: 10px;
+  border: none;
+  flex: 1;
+  margin: 10px;
+  outline-width: 0;
+  font-weight: 600;
+  display: flex;
+  width: 100%;
+  background-color: transparent;
+  
+}
+.search__bar>.MuiSvgIcon-root{
+    background-color: transparent;
+    color: lightgray;
+    margin-left: 20px;
+}

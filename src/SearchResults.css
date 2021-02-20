@@ -1,0 +1,42 @@
+.search__results{
+    background-color: white;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    width: 350px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 10px; 
+}
+
+.search__resultsLeft{
+   background-color: white;
+   display: flex;
+   align-items: center;
+   width: 150px;
+   margin-left: 20px;
+    padding-right: 20px;
+}
+
+.search__resultsLeft>img{
+    background-color: white;
+    height: 30px;
+    border-radius: 15px;
+    margin-right: 10px;
+}
+.search__resultsLeft>p{
+    background-color: transparent ;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.search__resultsRight{
+    background-color: white;
+    display: flex;
+    align-items: center;
+}
+
+.search__resultsRight>p{
+    background-color: transparent;
+    margin-left: 20px;
+}
