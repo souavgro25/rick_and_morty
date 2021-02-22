@@ -1,53 +1,101 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback,useRef, useEffect, useState } from 'react'
 import axios from "axios";
-import { useEffect } from 'react';
+
 import "./Search.css";
 import SearchResults from './SearchResults';
 import SearchIcon from '@material-ui/icons/Search';
+
 
 
 function Search() {
     const [contacts,setContacts]=useState([]);
     const [Search, setSearch] = useState("");
     const [page, setpage] = useState(1);
-  
-    const [hasMore, setHasMore] = useState(false)
- 
-   
- 
-    const observer = useRef()
-    const lastBookElementRef = useCallback(node => {
-      
-        if (observer.current) observer.current.disconnect()
-        observer.current = new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting && hasMore) {
-            setpage(prevpage => prevpage + 1)
-        }
-        })
-        if (node) observer.current.observe(node)
-    }, [ hasMore])    
+    const [hasMore, setHasMore] = useState(true)
+    const [loading, setLoading] = useState(true)
     
-    const searchState = async fetchData =>{
-        const fetchUrl=`https://rickandmortyapi.com/api/character/?name=${fetchData}&page=${page}`
-        const requests= await axios.get(fetchUrl);
+
+ useEffect(() => {
+    fetchmore(Search);
+ }, [page])
+  
+
+ const observer = useRef()
+  //  function to setpage when the last elememt of the current page is reached 
+ const lastElementRef = useCallback(node => {
+   if (loading) return
+   if (observer.current) observer.current.disconnect()
+   observer.current = new IntersectionObserver(entries => {
+     if (entries[0].isIntersecting && hasMore) {
+       setpage(prevPage => prevPage + 1)
+     }
+   })
+   if (node) observer.current.observe(node)
+ }, [loading, hasMore])
+
+// function to fetch data of page when page is set to new page
+   const fetchmore = ( async fetchData  =>{ 
+    const requests= await axios({
+        method: 'GET',
+        url: 'https://rickandmortyapi.com/api/character/',
+        params: { name: Search, page: page },
+        })
+    const cons= requests.data.results;
+    console.log(cons)
+
+    let  matches =cons.filter(con =>{
+        const regex =new RegExp(`^${fetchData}`,'gi');
+         
+         return con.name.match(regex);
+    });
+    if(fetchData.length === 0){
+        matches=[]
+    }
+    const result= [...contacts,...matches];
+ 
+    console.log(result);
+    
+    
+    setContacts(result)
+    setHasMore(true)
+    setLoading(false)
+    
+        
+   })
+//   This function calls when new search is happen  
+    const searchState =  ( async fetchData => {
+       
+        const requests= await axios({
+            method: 'GET',
+            url: 'https://rickandmortyapi.com/api/character/',
+            params: { name: Search, page: page },
+            })
         const cons= requests.data.results;
         console.log(cons)
-        // console.log(cons.location222.name)
+     
         let  matches =cons.filter(con =>{
             const regex =new RegExp(`^${fetchData}`,'gi');
              
              return con.name.match(regex);
         });
+       
+        let result= [...contacts,...matches];
         if(fetchData.length === 0){
             matches=[]
+            result=[]
         }
-        setHasMore(matches.length>0)
-        // setLoading(true)
+       
+        console.log(result);
+       
+        setContacts(result)
+        setLoading(false)
+        setHasMore(true)
         setpage(1)
-        setContacts(matches)
-    }   
-    
-    
+        
+        
+    }  ) 
+   
+    console.log(page);
   
 
     return (
@@ -64,34 +112,40 @@ function Search() {
             </div>
             
             <div>
-           
-            {contacts.map(({id,name,image,status,gender,species,location,origin},index)=>{
-                   
-                        if (contacts.length === index + 1) {
-                        return (
-                            <div ref={lastBookElementRef} key={id}  className="search__results">
-                            <SearchResults name={name}
-                            image={image}
-                            status={status}
-                            species={species}
-                            gender={gender}
-                            location={location.name}
-                            origin={origin.name}/>
-                            </div>)
-                        } else {
-                            <div   key={id}  className="search__results">
-                            <SearchResults name={name}
-                            image={image}
-                            status={status}
-                            species={species}
-                            gender={gender}
-                            location={location.name}
-                            origin={origin.name}/>
-                            </div>
-                        }
+         
+            {
+            contacts.map(({id,name,image,status,gender,species,location,origin},index)=>{
+                  
+                if (contacts.length === index + 1) {
+                    return <div ref={lastElementRef}  className="search__results">
+                 
+                 <SearchResults name={name}
+                 key={id}                     
+                 image={image}
+                 status={status}
+                 species={species}
+                 gender={gender}
+                 location={location.name}
+                 origin={origin.name}
+                />
+                 </div>
+                  } else {
+                    return<div   className="search__results">
+          
+                 <SearchResults name={name}
+                 key={id}                     
+                 image={image}
+                 status={status}
+                 species={species}
+                 gender={gender}
+                 location={location.name}
+                 origin={origin.name}
+                />
+                 </div>
+                  }
                     
 })}
-              
+     
                 </div>
          
                 </div>

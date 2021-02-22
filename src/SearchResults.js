@@ -33,8 +33,7 @@ function SearchResults({name,image,status,species,gender,location,origin}) {
            isOpen={mode}
            ariaHideApp={false}
            onRequestClose={closeModal}>
-               {/* <ContactDetail name={name} image={image} status={status} species={species} gender={gender}
-               location={location} origin={origin}/> */}
+        
                <div className="contactDetail">
                
                 <CloseIcon onClick={closeModal}/>
